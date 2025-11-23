@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "name": "Shirt & Pents",
+    "price": 500,
+    "image": "pent.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Laundry",
+    "price": 250,
+    "image": "laundry.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Stationary",
+    "price": 10,
+    "image": "stationary.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Fast Food",
+    "price": 50,
+    "image": "fast.jpg"
+  },
+  {
+    "id": 5,
+    "name": "General Stores",
+    "price": 10,
+    "image": "generalstores.jpg"
+  },
+  {
+    "id": 6,
+    "name": "MEDICINE",
+    "price": 100,
+    "image": "general.jpg"
+  },
+  {
+    "id": 7,
+    "name": "ELECTRONICS",
+    "price": 5000,
+    "image": "mobile and electronics.jpg"
+  }
+]
+

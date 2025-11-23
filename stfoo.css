@@ -1,0 +1,159 @@
+/* ----------------------------
+   Global Reset
+----------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+/* ----------------------------
+   Fixed Header
+----------------------------- */
+.nav {
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1% 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.nav a {
+    color: #000;
+    text-decoration: none;
+    transition: 0.5s;
+}
+.nav a:hover {
+    color: rgb(93, 113, 246);
+}
+.navlink {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 115%;
+}
+#login a {
+    padding-left: 10%;
+}
+
+/* Push content below header */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 100px; /* header height */
+}
+
+/* Main content grows to push footer down */
+.main-content {
+    flex: 1;
+}
+
+/* ----------------------------
+   About Section Styling
+----------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+.about-section {
+    width: 80%;
+    max-width: 1000px;
+    margin: 20px auto 50px auto;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: 'Comic Neue', sans-serif;
+    color: #333;
+    line-height: 1.8;
+}
+
+.about-section p {
+    margin-bottom: 25px;
+    font-size: 18px;
+    text-align: justify;
+}
+
+.about-section p strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* ----------------------------
+   Footer Styling
+----------------------------- */
+footer {
+    width: 100%;
+    background-color: rgb(93, 113, 246);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 20px 0;
+}
+
+.footer_logoName h1,
+.footer_details p,
+.footer_timing_data p {
+    margin: 5px 10px;
+    font-weight: 100;
+}
+
+#stretch {
+    transform: scale(1.2, 1.2);
+}
+
+.footer_content {
+    width: 100%;
+    background-color: rgb(93, 113, 246);
+    color: white;
+    font-weight: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .about-section {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .about-section p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-section {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .about-section p {
+        font-size: 15px;
+    }
+}

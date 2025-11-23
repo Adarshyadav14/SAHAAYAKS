@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>UP Shop Locator</title>
+    <link rel="stylesheet" href="location.css" />
+  </head>
+  <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      .controls {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .controls div {
+        display: flex;
+        flex-direction: column;
+      }
+      select,
+      button {
+        padding: 5px 10px;
+        font-size: 16px;
+      }
+      #grid {
+        display: grid;
+        gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+      .card {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background: #f9f9f9;
+      }
+      .name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .addr,
+      .phone {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      .btn,
+      .copy-btn {
+        display: inline-block;
+        margin-top: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      .copy-btn {
+        background: #28a745;
+        margin-left: 5px;
+      }
+    </style>
+  <body>
+    <h1>UP Shop Locator</h1>
+
+    <div class="controls">
+      <div>
+        <b>Select City</b>
+        <select id="citySelect">
+          <option value="">-- Choose City --</option>
+        </select>
+      </div>
+
+      <div>
+        <b>Select Category</b>
+        <select id="categorySelect" disabled>
+          <option value="">-- Choose Category --</option>
+        </select>
+      </div>
+
+      <button id="searchBtn">Show Shops</button>
+    </div>
+
+    <div id="hint" style="color: #666">
+      Choose city and category to view shops.
+    </div>
+
+    <div id="grid" class="grid"></div>
+
+    <script>
+      const CITIES = [
+        "Lucknow",
+        "Kanpur",
+        "Agra",
+        "Prayagraj",
+        "Varanasi",
+        "Ghaziabad",
+      ];
+      const CATEGORIES = [
+        "Medical / Pharmacy (24 Hours)",
+        "Food / Restaurant",
+        "Grocery / Supermarket",
+        "Salon / Beauty",
+        "Laundry / Dry Clean",
+        "Hardware / General Store",
+      ];
+
+      // Sample DATA with 5 shops per category per city
+      const DATA = {
+        Lucknow: {
+          "Medical / Pharmacy (24 Hours)": [
+            {
+              name: "Apollo Pharmacy",
+              address: "Gomti Nagar, Lucknow",
+              phone: "9876543210",
+            },
+            {
+              name: "MedPlus",
+              address: "Hazratganj, Lucknow",
+              phone: "9988776655",
+            },
+            {
+              name: "LifeCare Medicals",
+              address: "Aliganj, Lucknow",
+              phone: "9123456780",
+            },
+            {
+              name: "Jan Aushadhi",
+              address: "Indira Nagar, Lucknow",
+              phone: "9001122334",
+            },
+            {
+              name: "Wellness Pharmacy",
+              address: "Alambagh, Lucknow",
+              phone: "9090909090",
+            },
+          ],
+          "Food / Restaurant": [
+            {
+              name: "Haldiram's",
+              address: "Hazratganj, Lucknow",
+              phone: "8001234567",
+            },
+            {
+              name: "Bikanervala",
+              address: "Gomti Nagar, Lucknow",
+              phone: "8009876543",
+            },
+            {
+              name: "Domino's",
+              address: "Aliganj, Lucknow",
+              phone: "7800123456",
+            },
+            {
+              name: "Tunday Kababi",
+              address: "Aminabad, Lucknow",
+              phone: "7609876500",
+            },
+            {
+              name: "Royal Café",
+              address: "Hazratganj, Lucknow",
+              phone: "7901237890",
+            },
+          ],
+          "Grocery / Supermarket": [
+            {
+              name: "D-Mart",
+              address: "Alambagh, Lucknow",
+              phone: "9090901001",
+            },
+            {
+              name: "Reliance Fresh",
+              address: "Indira Nagar, Lucknow",
+              phone: "9090901002",
+            },
+            {
+              name: "Spencer's",
+              address: "Gomti Nagar, Lucknow",
+              phone: "9090901003",
+            },
+            {
+              name: "Big Bazaar",
+              address: "Saharaganj, Lucknow",
+              phone: "9090901004",
+            },
+            {
+              name: "Local Kirana Store",
+              address: "Aminabad, Lucknow",
+              phone: "9090901005",
+            },
+          ],
+          "Salon / Beauty": [
+            {
+              name: "Lakmé Salon",
+              address: "Hazratganj, Lucknow",
+              phone: "8855001101",
+            },
+            {
+              name: "Naturals Salon",
+              address: "Gomti Nagar, Lucknow",
+              phone: "8855001102",
+            },
+            {
+              name: "Jawed Habib",
+              address: "Aliganj, Lucknow",
+              phone: "8855001103",
+            },
+            {
+              name: "Enrich Salon",
+              address: "Indira Nagar, Lucknow",
+              phone: "8855001104",
+            },
+            {
+              name: "Headmasters Salon",
+              address: "Alambagh, Lucknow",
+              phone: "8855001105",
+            },
+          ],
+          "Laundry / Dry Clean": [
+            {
+              name: "Tumbledry",
+              address: "Gomti Nagar, Lucknow",
+              phone: "8070701010",
+            },
+            {
+              name: "U Clean Laundry",
+              address: "Indira Nagar, Lucknow",
+              phone: "8070701011",
+            },
+            {
+              name: "CleanWell Laundry",
+              address: "Aliganj, Lucknow",
+              phone: "8070701012",
+            },
+            {
+              name: "EcoWash Laundry",
+              address: "Alambagh, Lucknow",
+              phone: "8070701013",
+            },
+            {
+              name: "FreshPress Laundry",
+              address: "Hazratganj, Lucknow",
+              phone: "8070701014",
+            },
+          ],
+          "Hardware / General Store": [
+            {
+              name: "Sharma Hardware",
+              address: "Aliganj, Lucknow",
+              phone: "9888001100",
+            },
+            {
+              name: "Gupta Tools & Hardware",
+              address: "Charbagh, Lucknow",
+              phone: "9888001101",
+            },
+            {
+              name: "National Hardware Store",
+              address: "Aminabad, Lucknow",
+              phone: "9888001102",
+            },
+            {
+              name: "Mishra Hardware House",
+              address: "Indira Nagar, Lucknow",
+              phone: "9888001103",
+            },
+            {
+              name: "City Hardware Mart",
+              address: "Hazratganj, Lucknow",
+              phone: "9888001104",
+            },
+          ],
+        },
+
+        Kanpur: {
+          "Medical / Pharmacy (24 Hours)": [
+            {
+              name: "Apollo Pharmacy",
+              address: "IIT Campus Nanakri, Kanpur",
+              phone: "—",
+            },
+            {
+              name: "Shakuntala Medical Store",
+              address: "Kidwai Nagar, Kanpur",
+              phone: "—",
+            },
+            {
+              name: "Ramashiv Medicos",
+              address: "Swaroop Nagar, Kanpur",
+              phone: "—",
+            },
+            {
+              name: "Maa Sharda Medical Store",
+              address: "Keshavpuram, Kanpur",
+              phone: "—",
+            },
+            {
+              name: "Sumi Medical Store",
+              address: "Barra, Kanpur",
+              phone: "—",
+            },
+          ],
+          "Food / Restaurant": [
+            {
+              name: "Pinch of Spice",
+              address: "Company Bagh, Kanpur",
+              phone: "—",
+            },
+            { name: "Gin n Ginger", address: "Kanpur", phone: "—" },
+            { name: "Little Chef", address: "Kanpur", phone: "—" },
+            { name: "Mehfil Restaurant", address: "Kanpur", phone: "—" },
+            { name: "Tadka Restaurant", address: "Kanpur", phone: "—" },
+          ],
+          "Grocery / Supermarket": [
+            {
+              name: "Big Bazaar – South X Mall",
+              address: "Kidwai Nagar, Kanpur",
+              phone: "+91 512 264 1033",
+            },
+            {
+              name: "Big Bazaar – Z‑Square Mall",
+              address: "Kanpur",
+              phone: "0512 307 8500",
+            },
+            { name: "Mega Basket", address: "Tilak Nagar, Kanpur", phone: "—" },
+            {
+              name: "Deep Kirana Store",
+              address: "Koala Nagar, Kanpur",
+              phone: "08460404409",
+            },
+            { name: "HR Agency", address: "Naya Ganj, Kanpur", phone: "—" },
+          ],
+          "Salon / Beauty": [
+            {
+              name: "Lakmé Salon",
+              address: "Kidwai Nagar, Kanpur",
+              phone: "—",
+            },
+            { name: "Jawed Habib", address: "Mall Road, Kanpur", phone: "—" },
+            {
+              name: "Naturals Salon",
+              address: "Kidwai Nagar, Kanpur",
+              phone: "—",
+            },
+            { name: "Enrich Salon", address: "Kanpur", phone: "—" },
+            { name: "Headmasters Salon", address: "Kanpur", phone: "—" },
+          ],
+          "Laundry / Dry Clean": [
+            { name: "Laundrivo", address: "Kanpur", phone: "+91 512 355 2831" },
+            { name: "Eco Wash Laundry", address: "Kanpur", phone: "—" },
+            { name: "Fresh Press Laundry", address: "Kanpur", phone: "—" },
+            { name: "CleanWell Laundry", address: "Kanpur", phone: "—" },
+            { name: "Tumbledry Laundry", address: "Kanpur", phone: "—" },
+          ],
+          "Hardware / General Store": [
+            {
+              name: "Baba Hardware",
+              address: "Jareeb Chowki, Kanpur",
+              phone: "—",
+            },
+            { name: "GA Timber", address: "Vijay Nagar, Kanpur", phone: "—" },
+            {
+              name: "National Hardware Store",
+              address: "Meston Road, Kanpur",
+              phone: "—",
+            },
+            { name: "Somdutt Plaza", address: "Mall Road, Kanpur", phone: "—" },
+            {
+              name: "Latouche Road Hardware",
+              address: "Latouche Road, Kanpur",
+              phone: "—",
+            },
+          ],
+        },
+
+        Agra: {
+          "Medical / Pharmacy (24 Hours)": [
+            {
+              name: "Apollo Pharmacy",
+              address: "Sanjay Place, Agra",
+              phone: "—",
+            },
+            {
+              name: "Shree Krishna Medical Store",
+              address: "Kamla Nagar, Agra",
+              phone: "—",
+            },
+            {
+              name: "Jan Aushadhi Kendra",
+              address: "Khandari Road, Agra",
+              phone: "—",
+            },
+            {
+              name: "Surya Medical Store",
+              address: "Dayal Bagh Road, Agra",
+              phone: "—",
+            },
+            { name: "MedPlus", address: "Trans Yamuna, Agra", phone: "—" },
+          ],
+          "Food / Restaurant": [
+            {
+              name: "Pinch of Spice",
+              address: "Agra Cantt",
+              phone: "+91 98370 12345",
+            },
+            {
+              name: "Peshawri",
+              address: "ITC Mughal, Agra",
+              phone: "+91 562 4021700",
+            },
+            {
+              name: "Dasaprakash",
+              address: "Meher Cinema Road, Agra",
+              phone: "—",
+            },
+            {
+              name: "Taj Terrace Restaurant",
+              address: "Hotel Taj, Agra",
+              phone: "—",
+            },
+            {
+              name: "Urban Deck",
+              address: "Tajnagri Phase 2, Agra",
+              phone: "+91 84450 00022",
+            },
+          ],
+          "Grocery / Supermarket": [
+            { name: "D-Mart", address: "Shastripuram, Agra", phone: "—" },
+            {
+              name: "Reliance Smart",
+              address: "Fatehabad Road, Agra",
+              phone: "—",
+            },
+            {
+              name: "Easy Day Club",
+              address: "Sanjay Place, Agra",
+              phone: "—",
+            },
+            {
+              name: "Big Bazaar",
+              address: "Ashok Cosmos Mall, Agra",
+              phone: "—",
+            },
+            {
+              name: "Agra Fresh Mart",
+              address: "Kamla Nagar, Agra",
+              phone: "—",
+            },
+          ],
+          "Salon / Beauty": [
+            { name: "Jawed Habib", address: "Sanjay Place, Agra", phone: "—" },
+            {
+              name: "Naturals Salon",
+              address: "Kamla Nagar, Agra",
+              phone: "—",
+            },
+            {
+              name: "Lakmé Salon",
+              address: "Fatehabad Road, Agra",
+              phone: "—",
+            },
+            {
+              name: "Geetanjali Salon",
+              address: "Tajnagri Phase 2, Agra",
+              phone: "—",
+            },
+            {
+              name: "Looks Salon",
+              address: "Ashok Cosmos Mall, Agra",
+              phone: "—",
+            },
+          ],
+          "Laundry / Dry Clean": [
+            {
+              name: "Tumbledry",
+              address: "Kamla Nagar, Agra",
+              phone: "+91 96968 02020",
+            },
+            {
+              name: "U Clean Laundry",
+              address: "Fatehabad Road, Agra",
+              phone: "—",
+            },
+            {
+              name: "Urban Clean Wash",
+              address: "Dayal Bagh, Agra",
+              phone: "—",
+            },
+            {
+              name: "Quick Wash Laundry",
+              address: "Sanjay Place, Agra",
+              phone: "—",
+            },
+            {
+              name: "DryCleanExpress",
+              address: "Bodla Road, Agra",
+              phone: "—",
+            },
+          ],
+          "Hardware / General Store": [
+            { name: "Goyal Hardware", address: "MG Road, Agra", phone: "—" },
+            {
+              name: "Agra Paint & Hardware",
+              address: "Sadar Bazaar, Agra",
+              phone: "—",
+            },
+            { name: "Gupta Hardware", address: "Rakabganj, Agra", phone: "—" },
+            {
+              name: "Bharat Hardware",
+              address: "Trans Yamuna, Agra",
+              phone: "—",
+            },
+            {
+              name: "Khandelwal Hardware",
+              address: "Fatehabad Road, Agra",
+              phone: "—",
+            },
+          ],
+        },
+
+        // Note: Prayagraj, Varanasi, Ghaziabad can be added similarly with 5 shops per category
+      };
+
+      // Populate city dropdown
+      const citySelect = document.getElementById("citySelect");
+      const categorySelect = document.getElementById("categorySelect");
+      const grid = document.getElementById("grid");
+      const hint = document.getElementById("hint");
+
+      CITIES.forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        citySelect.appendChild(opt);
+      });
+
+      // Update categories based on city selection (only categories with >=5 shops)
+      citySelect.addEventListener("change", () => {
+        const city = citySelect.value;
+        categorySelect.innerHTML =
+          '<option value="">-- Choose Category --</option>';
+        grid.innerHTML = "";
+        if (!city) {
+          categorySelect.disabled = true;
+          hint.textContent = "Choose city and category to view shops.";
+          return;
+        }
+
+        const availableCategories = CATEGORIES.filter(
+          (cat) => DATA[city][cat] && DATA[city][cat].length >= 5
+        );
+
+        if (availableCategories.length === 0) {
+          categorySelect.disabled = true;
+          hint.textContent =
+            "No category with 5 or more shops available in this city.";
+          return;
+        }
+
+        availableCategories.forEach((cat) => {
+          const opt = document.createElement("option");
+          opt.value = cat;
+          opt.textContent = cat;
+          categorySelect.appendChild(opt);
+        });
+
+        categorySelect.disabled = false;
+        hint.textContent = "Select category to see shops.";
+      });
+
+      function copyText(text, btn) {
+        navigator.clipboard.writeText(text);
+        btn.textContent = "Copied!";
+        setTimeout(() => (btn.textContent = "Copy"), 1200);
+      }
+
+      function mapsUrl(name, address) {
+        return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+          name + ", " + address
+        )}`;
+      }
+
+      document.getElementById("searchBtn").onclick = () => {
+        const city = citySelect.value;
+        const cat = categorySelect.value;
+        grid.innerHTML = "";
+
+        if (!city || !cat) {
+          hint.textContent = "Please select both city and category.";
+          return;
+        }
+
+        const shops = DATA[city][cat];
+        hint.textContent = `Showing ${shops.length} Shops for "${cat}" in ${city}`;
+
+        shops.forEach((s, i) => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+          <div class="name">${i + 1}. ${s.name}</div>
+          <div class="addr">📍 ${s.address}</div>
+          <div class="phone">📞 ${s.phone}</div>
+          <a class="btn" target="_blank" href="${mapsUrl(
+            s.name,
+            s.address
+          )}">Get Directions</a>
+          <button class="copy-btn copy-addr">Copy Location</button>
+          <button class="copy-btn copy-phone">Copy Phone</button>
+        `;
+          card.querySelector(".copy-addr").onclick = () =>
+            copyText(
+              `${s.name}, ${s.address}`,
+              card.querySelector(".copy-addr")
+            );
+          card.querySelector(".copy-phone").onclick = () =>
+            copyText(s.phone, card.querySelector(".copy-phone"));
+          grid.appendChild(card);
+        });
+      };
+    </script>
+              <div class="footer">
+        <div class="footer_logoName">
+          <h1>SAHAAYAKS</h1>
+        </div>
+
+        <div class="footer_details">
+          <p id="stretch">BBDITM</p>
+          <p>Lucknow</p>
+        </div>
+
+        <div class="footer_timing_data">
+          <p>Tel: 123-456-7890</p>
+          <p id="stretch">Opening Hours: 9am - 5pm</p>
+        </div>
+      </div>
+
+      <div class="footer_content">
+        <p>
+          &copy; @2025 by SAHAAYAKS. Powered and secured by ADARSH YADAV
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

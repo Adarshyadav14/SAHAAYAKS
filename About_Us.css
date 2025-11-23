@@ -1,0 +1,215 @@
+/* ----------------------------
+   Global Reset & Header/Footer (unchanged)
+----------------------------- */
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html body {
+    height: 100%;
+    width: 100%;
+}
+
+/* ----------------------------
+   Fixed Header
+----------------------------- */
+.nav {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1% 5%;
+    position: fixed; /* make header fixed */
+    top: 0;
+    left: 0;
+    z-index: 999;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Push page content below header */
+body {
+    padding-top: 100px; /* adjust based on header height */
+}
+
+/* Header links */
+.nav a{
+    color: #000;
+    text-decoration: none;
+    transition: .5s;
+}
+.nav a:hover{
+    color: rgb(93, 113, 246);
+}
+.navlink{
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    text-decoration: none;
+    font-size: 115%;
+}
+.nav svg{
+    width: 25%;
+}
+#login{
+    display: flex;
+    align-items: center;
+}
+#login a{
+    padding-left: 10%;
+}
+
+/* Main About Section heading spacing */
+.main_about{
+    padding-top: 20px; /* reduced because body padding handles header */
+}
+#about {
+    font-size: 3.8rem;
+    letter-spacing: 10px;
+}
+#us {
+    font-size: 3.8rem;
+    font-weight: 100;
+}
+
+/* footer content */
+.footer{
+    height: 7rem;
+    width: 100%;
+    background-color: rgb(93, 113, 246);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 180%;
+}
+
+.footer_details{
+    line-height: 25px;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    padding: 0 100px;
+}
+
+.footer_details p{
+    font-weight: 100;
+}
+
+.footer_timing_data p{
+    font-weight: 100;
+}
+
+#stretch{
+    transform: scale(1.4, 1.4);
+}
+
+.footer_content{
+    width: 100%;
+    height: 5rem;
+    background-color: rgb(93, 113, 246);
+    color: white;
+    font-weight: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 192%;
+}
+
+/* ----------------------------
+   About Section Styling
+----------------------------- */
+
+/* Import Comic Neue font specifically for About Section */
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+/* Main About Section */
+.about-section {
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto 50px auto; /* body padding handles top spacing */
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: 'Comic Neue', sans-serif;
+    color: #333;
+    line-height: 1.8;
+}
+
+/* Paragraph Styling */
+.about-section p {
+    margin-bottom: 25px;
+    font-size: 18px;
+    text-align: justify;
+}
+
+/* Highlight key services */
+.about-section p strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* Style icons within strong */
+.about-section i {
+    color: #e67e22;
+    margin-right: 6px;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+/* Hover effect for icons */
+.about-section i:hover {
+    color: #d35400;
+    transition: 0.3s;
+}
+
+/* Decorative separators between paragraphs */
+.about-section p + p::before {
+    content: "\f0c0"; /* Font Awesome user-friends icon */
+    font-family: "Font Awesome 6 Free"; 
+    font-weight: 900;
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    color: #e67e22;
+    margin: 30px 0 15px 0;
+    position: relative;
+}
+
+.about-section p + p::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0 20px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .about-section {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .about-section p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-section {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .about-section p {
+        font-size: 15px;
+    }
+}

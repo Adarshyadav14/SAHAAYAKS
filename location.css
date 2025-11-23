@@ -1,0 +1,176 @@
+/* location.css */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body > *:not(.footer):not(.footer_content) {
+  flex: 1;
+}
+/* Reset and base styles */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0px;
+  background-color: #f4f6f9;
+  color: #333;
+}
+.h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 10%;
+}
+
+/* Controls section */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.controls div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  min-width: 200px;
+}
+
+button#searchBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button#searchBtn:hover {
+  background-color: #005fa3;
+}
+
+/* Hint text */
+#hint {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0 10px;
+}
+
+/* Shop card */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.name {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.addr,
+.phone {
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+/* Buttons */
+.btn,
+.copy-btn {
+  display: inline-block;
+  margin-top: 8px;
+  margin-right: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #218838;
+}
+
+.copy-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
+
+.copy-btn:hover {
+  background-color: #5a6268;
+}
+.footer {
+  width: 100%;
+  background-color: rgb(93, 113, 246);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 8px 0; /* Smaller height */
+  font-size: 14px; /* Smaller text */
+}
+
+.footer_details {
+  line-height: 18px; /* Reduced line height */
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  padding: 0 40px; /* Less width space */
+}
+
+.footer_details p,
+.footer_timing_data p {
+  font-weight: 100;
+  margin: 2px 0; /* Minimal gap between lines */
+}
+
+#stretch {
+  transform: scale(1.1, 1.1); /* Smaller scaling */
+}
+
+/* Bottom copyright bar smaller */
+.footer_content {
+  width: 100%;
+  background-color: rgb(93, 113, 246);
+  color: white;
+  font-weight: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0; /* Reduced height */
+  font-size: 13px; /* Smaller text */
+  height: auto;
+}

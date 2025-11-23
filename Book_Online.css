@@ -1,0 +1,189 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+html body {
+  height: 100%;
+  width: 100%;
+}
+
+.nav {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1% 5%;
+  position: fixed; /* make header fixed */
+  top: 0;
+  left: 0;
+  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Push page content below header */
+body {
+  padding-top: 100px; /* adjust based on header height */
+}
+
+/* Header links */
+.nav a {
+  color: #000;
+  text-decoration: none;
+  transition: 0.5s;
+}
+.nav a:hover {
+  color: rgb(93, 113, 246);
+}
+.navlink {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  text-decoration: none;
+  font-size: 115%;
+}
+.nav svg {
+  width: 25%;
+}
+#login {
+  display: flex;
+  align-items: center;
+}
+#login a {
+  padding-left: 10%;
+}
+
+.text_design {
+  height: 20vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  /* margin-top: 80px; */
+  padding-top: 80px;
+  /* background-color: bisque; */
+}
+
+.text_design #book {
+  font-size: 3.8rem;
+}
+
+.text_design #online {
+  font-size: 3.8rem;
+  font-weight: 100;
+}
+
+/* image block */
+
+.shirt {
+  margin-left: 20%;
+  display: flex;
+  height: 285px;
+  width: 60%;
+  background-color: rgb(239, 241, 242);
+  margin-bottom: 80px;
+}
+
+#shirt {
+  width: 469px;
+  height: 285px;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+#shirt:hover {
+  filter: brightness(70%);
+  transition: all ease 0.5s;
+}
+
+.box_last {
+  height: 285px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 50px;
+}
+
+.box_last h1 {
+  font-size: 1.33rem;
+  color: rgb(93, 113, 246);
+  text-align: center;
+}
+
+.box_last h1:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.box_last p {
+  text-align: center;
+  font-weight: 100;
+  opacity: 0.6;
+}
+
+.box_last button {
+  width: 7rem;
+  height: 2.5rem;
+  font-size: 16px;
+  line-height: 1.6rem;
+  background-color: rgb(93, 113, 246);
+  border: none;
+  cursor: pointer;
+  color: white;
+  opacity: 1;
+  font-weight: 100;
+}
+
+.box_last button:hover {
+  opacity: 0.7;
+}
+
+/* footer design */
+
+.footer {
+  height: 7rem;
+  width: 100%;
+  background-color: rgb(93, 113, 246);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.footer_details {
+  line-height: 25px;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+  padding: 0 100px;
+}
+
+.footer_details p {
+  font-weight: 100;
+}
+
+.footer_timing_data p {
+  font-weight: 100;
+}
+
+#stretch {
+  transform: scale(1.4, 1.4);
+}
+
+.footer_content {
+  width: 100%;
+  height: 5rem;
+  background-color: rgb(93, 113, 246);
+  color: white;
+  font-weight: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
